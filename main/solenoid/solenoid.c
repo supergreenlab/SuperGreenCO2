@@ -43,15 +43,17 @@ void init_solenoid() {
 }
 
 static void solenoid_task(void *param) {
+  int i = 0;
   while (true) {
     int co2 = get_co2();
     if (!get_solenoid() && co2 < 1000) {
-      gpio_set_level(GPIO_OUTPUT_SOLENOID, 1);
       set_solenoid(1);
+      i = 0;
     } else if (get_solenoid() && co2 > 1500) {
-      gpio_set_level(GPIO_OUTPUT_SOLENOID, 0);
       set_solenoid(0);
     }
+    gpio_set_level(GPIO_OUTPUT_SOLENOID, get_solenoid() && !(i % 6));
     vTaskDelay(1 * 1000 / portTICK_PERIOD_MS);
+    ++i;
   }
 }
