@@ -191,12 +191,76 @@ void internal_set_reboot(int value) {
   // TODO: httpd notify
 }
 void internal_set_co2(int value) {
+  set_co2(value);
 
 
 
   // TODO: httpd notify
 }
 void internal_set_solenoid(int value) {
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_co2_min(int value) {
+  set_co2_min(value);
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_co2_max(int value) {
+  set_co2_max(value);
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_cycle_div(int value) {
+  set_cycle_div(value);
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_cycle_div_duration(int value) {
+  set_cycle_div_duration(value);
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_on_hour(int value) {
+  set_on_hour(value);
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_on_min(int value) {
+  set_on_min(value);
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_off_hour(int value) {
+  set_off_hour(value);
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_off_min(int value) {
+  set_off_min(value);
+
+
+
+  // TODO: httpd notify
+}
+void internal_set_pause(int value) {
+  set_pause(value);
 
 
 

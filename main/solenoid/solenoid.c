@@ -16,6 +16,8 @@
 #include <stdlib.h>
 #include "solenoid.h"
 
+#include <time.h>
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
@@ -42,18 +44,44 @@ void init_solenoid() {
   xTaskCreate(solenoid_task, "SOLENOID", 4096, NULL, 10, NULL);
 }
 
+static bool is_on() {
+  int on_hour = get_on_hour();
+  int on_min = get_on_min();
+  int off_hour = get_off_hour();
+  int off_min = get_off_min();
+
+  time_t now;
+  struct tm tm_now;
+  time(&now);
+  localtime_r(&now, &tm_now); 
+
+  double on_sec = on_hour * 3600 + on_min * 60;
+  double off_sec = off_hour * 3600 + off_min * 60;
+  double cur_sec = tm_now.tm_hour * 3600 + tm_now.tm_min * 60;
+
+  if (on_sec == off_sec) return true;
+
+  return (on_sec < off_sec && on_sec < cur_sec && off_sec > cur_sec) || (on_sec > off_sec && (on_sec < cur_sec || cur_sec < off_sec));
+}
+
 static void solenoid_task(void *param) {
   int i = 0;
   while (true) {
+    if (get_pause() || !is_on()) {
+      set_solenoid(0);
+      gpio_set_level(GPIO_OUTPUT_SOLENOID, 0);
+      vTaskDelay(10 * 1000 / portTICK_PERIOD_MS);
+      continue;
+    }
     int co2 = get_co2();
-    if (!get_solenoid() && co2 < 1000) {
+    if (!get_solenoid() && co2 < get_co2_min()) {
       set_solenoid(1);
       i = 0;
-    } else if (get_solenoid() && co2 > 1500) {
+    } else if (get_solenoid() && co2 > get_co2_max()) {
       set_solenoid(0);
     }
-    gpio_set_level(GPIO_OUTPUT_SOLENOID, get_solenoid() && !(i % 6));
-    vTaskDelay(1 * 1000 / portTICK_PERIOD_MS);
+    gpio_set_level(GPIO_OUTPUT_SOLENOID, get_solenoid() && !(i % get_cycle_div()));
+    vTaskDelay(1.0f * (double)get_cycle_div_duration() / portTICK_PERIOD_MS);
     ++i;
   }
 }

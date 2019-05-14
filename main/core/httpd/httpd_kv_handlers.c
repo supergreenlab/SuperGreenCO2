@@ -99,6 +99,51 @@ const kvi_handler kvi_handlers[] = {
     .handler = NULL,
     .getter = get_solenoid,
   },
+  {
+    .name = "CO2_MIN",
+    .handler = internal_set_co2_min,
+    .getter = get_co2_min,
+  },
+  {
+    .name = "CO2_MAX",
+    .handler = internal_set_co2_max,
+    .getter = get_co2_max,
+  },
+  {
+    .name = "CYCLE_DIV",
+    .handler = internal_set_cycle_div,
+    .getter = get_cycle_div,
+  },
+  {
+    .name = "CYCLE_DIV_DURATION",
+    .handler = internal_set_cycle_div_duration,
+    .getter = get_cycle_div_duration,
+  },
+  {
+    .name = "ON_HOUR",
+    .handler = internal_set_on_hour,
+    .getter = get_on_hour,
+  },
+  {
+    .name = "ON_MIN",
+    .handler = internal_set_on_min,
+    .getter = get_on_min,
+  },
+  {
+    .name = "OFF_HOUR",
+    .handler = internal_set_off_hour,
+    .getter = get_off_hour,
+  },
+  {
+    .name = "OFF_MIN",
+    .handler = internal_set_off_min,
+    .getter = get_off_min,
+  },
+  {
+    .name = "PAUSE",
+    .handler = internal_set_pause,
+    .getter = get_pause,
+  },
 
 /*
 * [/GENERATED]

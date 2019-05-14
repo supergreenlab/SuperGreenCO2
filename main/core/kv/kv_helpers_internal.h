@@ -50,6 +50,15 @@ void internal_set_i2c_1_enabled(int value);
 void internal_set_reboot(int value);
 void internal_set_co2(int value);
 void internal_set_solenoid(int value);
+void internal_set_co2_min(int value);
+void internal_set_co2_max(int value);
+void internal_set_cycle_div(int value);
+void internal_set_cycle_div_duration(int value);
+void internal_set_on_hour(int value);
+void internal_set_on_min(int value);
+void internal_set_off_hour(int value);
+void internal_set_off_min(int value);
+void internal_set_pause(int value);
 
 /*
  * [/GENERATED]

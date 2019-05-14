@@ -102,6 +102,26 @@ void preinit_kv() {
   defaulti(I2C_1_SCL, default_i2c_1_scl);
   int default_i2c_1_enabled = 0;
   defaulti(I2C_1_ENABLED, default_i2c_1_enabled);
+  int default_co2 = 0;
+  defaulti(CO2, default_co2);
+  int default_co2_min = 1000;
+  defaulti(CO2_MIN, default_co2_min);
+  int default_co2_max = 1500;
+  defaulti(CO2_MAX, default_co2_max);
+  int default_cycle_div = 6;
+  defaulti(CYCLE_DIV, default_cycle_div);
+  int default_cycle_div_duration = 1000;
+  defaulti(CYCLE_DIV_DURATION, default_cycle_div_duration);
+  int default_on_hour = 6;
+  defaulti(ON_HOUR, default_on_hour);
+  int default_on_min = 0;
+  defaulti(ON_MIN, default_on_min);
+  int default_off_hour = 16;
+  defaulti(OFF_HOUR, default_off_hour);
+  int default_off_min = 0;
+  defaulti(OFF_MIN, default_off_min);
+  int default_pause = 0;
+  defaulti(PAUSE, default_pause);
 
   /*
    * [/GENERATED]
@@ -129,10 +149,6 @@ void postinit_kv() {
   if (is_reboot_undefined()) {
     int default_reboot = 0;
     set_reboot(default_reboot);
-  }
-  if (is_co2_undefined()) {
-    int default_co2 = 0;
-    set_co2(default_co2);
   }
   if (is_solenoid_undefined()) {
     int default_solenoid = 0;
@@ -190,6 +206,26 @@ void reset_defaults() {
   seti(I2C_1_SCL, default_i2c_1_scl);
   int default_i2c_1_enabled = 0;
   seti(I2C_1_ENABLED, default_i2c_1_enabled);
+  int default_co2 = 0;
+  seti(CO2, default_co2);
+  int default_co2_min = 1000;
+  seti(CO2_MIN, default_co2_min);
+  int default_co2_max = 1500;
+  seti(CO2_MAX, default_co2_max);
+  int default_cycle_div = 6;
+  seti(CYCLE_DIV, default_cycle_div);
+  int default_cycle_div_duration = 1000;
+  seti(CYCLE_DIV_DURATION, default_cycle_div_duration);
+  int default_on_hour = 6;
+  seti(ON_HOUR, default_on_hour);
+  int default_on_min = 0;
+  seti(ON_MIN, default_on_min);
+  int default_off_hour = 16;
+  seti(OFF_HOUR, default_off_hour);
+  int default_off_min = 0;
+  seti(OFF_MIN, default_off_min);
+  int default_pause = 0;
+  seti(PAUSE, default_pause);
 }
 
 bool hasi(const char * key) {

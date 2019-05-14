@@ -329,3 +329,84 @@ keys:
     http:
       noop: true
     default: 0
+
+  - name: co2_min
+    caps_name: CO2_MIN
+    integer: true
+    nvs:
+      key: CO2_MIN
+    http:
+      write: true
+    default: 1000
+
+  - name: co2_max
+    caps_name: CO2_MAX
+    integer: true
+    nvs:
+      key: CO2_MAX
+    http:
+      write: true
+    default: 1500
+
+  - name: cycle_div
+    caps_name: CYCLE_DIV
+    integer: true
+    nvs:
+      key: CYC_D
+    http:
+      write: true
+    default: 6
+
+  - name: cycle_div_duration
+    caps_name: CYCLE_DIV_DURATION
+    integer: true
+    nvs:
+      key: CYC_D_D
+    http:
+      write: true
+    default: 1000
+
+  - name: on_hour
+    caps_name: ON_HOUR
+    integer: true
+    nvs:
+      key: ON_H
+    http:
+      write: true
+    default: 6
+
+  - name: on_min
+    caps_name: ON_MIN
+    integer: true
+    nvs:
+      key: ON_M
+    http:
+      write: true
+    default: 0
+
+  - name: off_hour
+    caps_name: OFF_HOUR
+    integer: true
+    nvs:
+      key: OFF_H
+    http:
+      write: true
+    default: 16
+
+  - name: off_min
+    caps_name: OFF_MIN
+    integer: true
+    nvs:
+      key: OFF_M
+    http:
+      write: true
+    default: 0
+
+  - name: pause
+    caps_name: PAUSE
+    integer: true
+    nvs:
+      key: PAUSE
+    http:
+      write: true
+    default: 0

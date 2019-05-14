@@ -270,6 +270,60 @@ static void stat_dump_task(void *param) {
       vTaskDelay(200 / portTICK_PERIOD_MS);
       reset_solenoid_changed();
     }
+    if ((counter % 20) == 0 || is_co2_min_changed()) {
+      value = get_co2_min();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "CO2_MIN", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_co2_min_changed();
+    }
+    if ((counter % 20) == 0 || is_co2_max_changed()) {
+      value = get_co2_max();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "CO2_MAX", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_co2_max_changed();
+    }
+    if ((counter % 20) == 0 || is_cycle_div_changed()) {
+      value = get_cycle_div();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "CYCLE_DIV", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_cycle_div_changed();
+    }
+    if ((counter % 20) == 0 || is_cycle_div_duration_changed()) {
+      value = get_cycle_div_duration();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "CYCLE_DIV_DURATION", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_cycle_div_duration_changed();
+    }
+    if ((counter % 20) == 0 || is_on_hour_changed()) {
+      value = get_on_hour();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "ON_HOUR", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_on_hour_changed();
+    }
+    if ((counter % 20) == 0 || is_on_min_changed()) {
+      value = get_on_min();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "ON_MIN", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_on_min_changed();
+    }
+    if ((counter % 20) == 0 || is_off_hour_changed()) {
+      value = get_off_hour();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "OFF_HOUR", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_off_hour_changed();
+    }
+    if ((counter % 20) == 0 || is_off_min_changed()) {
+      value = get_off_min();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "OFF_MIN", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_off_min_changed();
+    }
+    if ((counter % 20) == 0 || is_pause_changed()) {
+      value = get_pause();
+      ESP_LOGI(SGO_LOG_METRIC, "@KV %s=%d", "PAUSE", value);
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+      reset_pause_changed();
+    }
 
     vTaskDelay(30 * 1000 / portTICK_PERIOD_MS);
     ++counter;

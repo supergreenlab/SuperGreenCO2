@@ -45,6 +45,16 @@
 #define I2C_1_SDA "I2C_1_SDA"
 #define I2C_1_SCL "I2C_1_SCL"
 #define I2C_1_ENABLED "I2C_1_E"
+#define CO2 "CO2"
+#define CO2_MIN "CO2_MIN"
+#define CO2_MAX "CO2_MAX"
+#define CYCLE_DIV "CYC_D"
+#define CYCLE_DIV_DURATION "CYC_D_D"
+#define ON_HOUR "ON_H"
+#define ON_MIN "ON_M"
+#define OFF_HOUR "OFF_H"
+#define OFF_MIN "OFF_M"
+#define PAUSE "PAUSE"
 
 /*
  * [/GENERATED]

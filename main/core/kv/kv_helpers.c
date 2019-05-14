@@ -1139,19 +1139,15 @@ bool is_co2_undefined() {
 }
 
 
-static int _co2 = INT_MAX;
 
 int get_co2() {
-  xSemaphoreTake(_mutex_co2, 0);
-  int v = _co2;
-  xSemaphoreGive(_mutex_co2);
-  return v;
+  return geti(CO2);
 }
 
 void set_co2(int value) {
+  if (geti(CO2) == value) return;
+  seti(CO2, value);
   xSemaphoreTake(_mutex_co2, 0);
-  if (_co2 == value) return;
-  _co2 = value;
   _co2_changed = true;
   _co2_undefined = false;
   xSemaphoreGive(_mutex_co2);
@@ -1202,6 +1198,366 @@ void set_solenoid(int value) {
 }
 
 
+static SemaphoreHandle_t _mutex_co2_min; // TODO check RAM weight of creating so many semaphores :/
+static bool _co2_min_changed = true;
+static bool _co2_min_undefined = true;
+
+void reset_co2_min_changed() {
+  xSemaphoreTake(_mutex_co2_min, 0);
+  _co2_min_changed = false;
+  xSemaphoreGive(_mutex_co2_min);
+}
+
+bool is_co2_min_changed() {
+  xSemaphoreTake(_mutex_co2_min, 0);
+  bool v = _co2_min_changed;
+  xSemaphoreGive(_mutex_co2_min);
+  return v;
+}
+
+bool is_co2_min_undefined() {
+  xSemaphoreTake(_mutex_co2_min, 0);
+  bool v = _co2_min_undefined;
+  xSemaphoreGive(_mutex_co2_min);
+  return v;
+}
+
+
+
+int get_co2_min() {
+  return geti(CO2_MIN);
+}
+
+void set_co2_min(int value) {
+  if (geti(CO2_MIN) == value) return;
+  seti(CO2_MIN, value);
+  xSemaphoreTake(_mutex_co2_min, 0);
+  _co2_min_changed = true;
+  _co2_min_undefined = false;
+  xSemaphoreGive(_mutex_co2_min);
+}
+
+
+static SemaphoreHandle_t _mutex_co2_max; // TODO check RAM weight of creating so many semaphores :/
+static bool _co2_max_changed = true;
+static bool _co2_max_undefined = true;
+
+void reset_co2_max_changed() {
+  xSemaphoreTake(_mutex_co2_max, 0);
+  _co2_max_changed = false;
+  xSemaphoreGive(_mutex_co2_max);
+}
+
+bool is_co2_max_changed() {
+  xSemaphoreTake(_mutex_co2_max, 0);
+  bool v = _co2_max_changed;
+  xSemaphoreGive(_mutex_co2_max);
+  return v;
+}
+
+bool is_co2_max_undefined() {
+  xSemaphoreTake(_mutex_co2_max, 0);
+  bool v = _co2_max_undefined;
+  xSemaphoreGive(_mutex_co2_max);
+  return v;
+}
+
+
+
+int get_co2_max() {
+  return geti(CO2_MAX);
+}
+
+void set_co2_max(int value) {
+  if (geti(CO2_MAX) == value) return;
+  seti(CO2_MAX, value);
+  xSemaphoreTake(_mutex_co2_max, 0);
+  _co2_max_changed = true;
+  _co2_max_undefined = false;
+  xSemaphoreGive(_mutex_co2_max);
+}
+
+
+static SemaphoreHandle_t _mutex_cycle_div; // TODO check RAM weight of creating so many semaphores :/
+static bool _cycle_div_changed = true;
+static bool _cycle_div_undefined = true;
+
+void reset_cycle_div_changed() {
+  xSemaphoreTake(_mutex_cycle_div, 0);
+  _cycle_div_changed = false;
+  xSemaphoreGive(_mutex_cycle_div);
+}
+
+bool is_cycle_div_changed() {
+  xSemaphoreTake(_mutex_cycle_div, 0);
+  bool v = _cycle_div_changed;
+  xSemaphoreGive(_mutex_cycle_div);
+  return v;
+}
+
+bool is_cycle_div_undefined() {
+  xSemaphoreTake(_mutex_cycle_div, 0);
+  bool v = _cycle_div_undefined;
+  xSemaphoreGive(_mutex_cycle_div);
+  return v;
+}
+
+
+
+int get_cycle_div() {
+  return geti(CYCLE_DIV);
+}
+
+void set_cycle_div(int value) {
+  if (geti(CYCLE_DIV) == value) return;
+  seti(CYCLE_DIV, value);
+  xSemaphoreTake(_mutex_cycle_div, 0);
+  _cycle_div_changed = true;
+  _cycle_div_undefined = false;
+  xSemaphoreGive(_mutex_cycle_div);
+}
+
+
+static SemaphoreHandle_t _mutex_cycle_div_duration; // TODO check RAM weight of creating so many semaphores :/
+static bool _cycle_div_duration_changed = true;
+static bool _cycle_div_duration_undefined = true;
+
+void reset_cycle_div_duration_changed() {
+  xSemaphoreTake(_mutex_cycle_div_duration, 0);
+  _cycle_div_duration_changed = false;
+  xSemaphoreGive(_mutex_cycle_div_duration);
+}
+
+bool is_cycle_div_duration_changed() {
+  xSemaphoreTake(_mutex_cycle_div_duration, 0);
+  bool v = _cycle_div_duration_changed;
+  xSemaphoreGive(_mutex_cycle_div_duration);
+  return v;
+}
+
+bool is_cycle_div_duration_undefined() {
+  xSemaphoreTake(_mutex_cycle_div_duration, 0);
+  bool v = _cycle_div_duration_undefined;
+  xSemaphoreGive(_mutex_cycle_div_duration);
+  return v;
+}
+
+
+
+int get_cycle_div_duration() {
+  return geti(CYCLE_DIV_DURATION);
+}
+
+void set_cycle_div_duration(int value) {
+  if (geti(CYCLE_DIV_DURATION) == value) return;
+  seti(CYCLE_DIV_DURATION, value);
+  xSemaphoreTake(_mutex_cycle_div_duration, 0);
+  _cycle_div_duration_changed = true;
+  _cycle_div_duration_undefined = false;
+  xSemaphoreGive(_mutex_cycle_div_duration);
+}
+
+
+static SemaphoreHandle_t _mutex_on_hour; // TODO check RAM weight of creating so many semaphores :/
+static bool _on_hour_changed = true;
+static bool _on_hour_undefined = true;
+
+void reset_on_hour_changed() {
+  xSemaphoreTake(_mutex_on_hour, 0);
+  _on_hour_changed = false;
+  xSemaphoreGive(_mutex_on_hour);
+}
+
+bool is_on_hour_changed() {
+  xSemaphoreTake(_mutex_on_hour, 0);
+  bool v = _on_hour_changed;
+  xSemaphoreGive(_mutex_on_hour);
+  return v;
+}
+
+bool is_on_hour_undefined() {
+  xSemaphoreTake(_mutex_on_hour, 0);
+  bool v = _on_hour_undefined;
+  xSemaphoreGive(_mutex_on_hour);
+  return v;
+}
+
+
+
+int get_on_hour() {
+  return geti(ON_HOUR);
+}
+
+void set_on_hour(int value) {
+  if (geti(ON_HOUR) == value) return;
+  seti(ON_HOUR, value);
+  xSemaphoreTake(_mutex_on_hour, 0);
+  _on_hour_changed = true;
+  _on_hour_undefined = false;
+  xSemaphoreGive(_mutex_on_hour);
+}
+
+
+static SemaphoreHandle_t _mutex_on_min; // TODO check RAM weight of creating so many semaphores :/
+static bool _on_min_changed = true;
+static bool _on_min_undefined = true;
+
+void reset_on_min_changed() {
+  xSemaphoreTake(_mutex_on_min, 0);
+  _on_min_changed = false;
+  xSemaphoreGive(_mutex_on_min);
+}
+
+bool is_on_min_changed() {
+  xSemaphoreTake(_mutex_on_min, 0);
+  bool v = _on_min_changed;
+  xSemaphoreGive(_mutex_on_min);
+  return v;
+}
+
+bool is_on_min_undefined() {
+  xSemaphoreTake(_mutex_on_min, 0);
+  bool v = _on_min_undefined;
+  xSemaphoreGive(_mutex_on_min);
+  return v;
+}
+
+
+
+int get_on_min() {
+  return geti(ON_MIN);
+}
+
+void set_on_min(int value) {
+  if (geti(ON_MIN) == value) return;
+  seti(ON_MIN, value);
+  xSemaphoreTake(_mutex_on_min, 0);
+  _on_min_changed = true;
+  _on_min_undefined = false;
+  xSemaphoreGive(_mutex_on_min);
+}
+
+
+static SemaphoreHandle_t _mutex_off_hour; // TODO check RAM weight of creating so many semaphores :/
+static bool _off_hour_changed = true;
+static bool _off_hour_undefined = true;
+
+void reset_off_hour_changed() {
+  xSemaphoreTake(_mutex_off_hour, 0);
+  _off_hour_changed = false;
+  xSemaphoreGive(_mutex_off_hour);
+}
+
+bool is_off_hour_changed() {
+  xSemaphoreTake(_mutex_off_hour, 0);
+  bool v = _off_hour_changed;
+  xSemaphoreGive(_mutex_off_hour);
+  return v;
+}
+
+bool is_off_hour_undefined() {
+  xSemaphoreTake(_mutex_off_hour, 0);
+  bool v = _off_hour_undefined;
+  xSemaphoreGive(_mutex_off_hour);
+  return v;
+}
+
+
+
+int get_off_hour() {
+  return geti(OFF_HOUR);
+}
+
+void set_off_hour(int value) {
+  if (geti(OFF_HOUR) == value) return;
+  seti(OFF_HOUR, value);
+  xSemaphoreTake(_mutex_off_hour, 0);
+  _off_hour_changed = true;
+  _off_hour_undefined = false;
+  xSemaphoreGive(_mutex_off_hour);
+}
+
+
+static SemaphoreHandle_t _mutex_off_min; // TODO check RAM weight of creating so many semaphores :/
+static bool _off_min_changed = true;
+static bool _off_min_undefined = true;
+
+void reset_off_min_changed() {
+  xSemaphoreTake(_mutex_off_min, 0);
+  _off_min_changed = false;
+  xSemaphoreGive(_mutex_off_min);
+}
+
+bool is_off_min_changed() {
+  xSemaphoreTake(_mutex_off_min, 0);
+  bool v = _off_min_changed;
+  xSemaphoreGive(_mutex_off_min);
+  return v;
+}
+
+bool is_off_min_undefined() {
+  xSemaphoreTake(_mutex_off_min, 0);
+  bool v = _off_min_undefined;
+  xSemaphoreGive(_mutex_off_min);
+  return v;
+}
+
+
+
+int get_off_min() {
+  return geti(OFF_MIN);
+}
+
+void set_off_min(int value) {
+  if (geti(OFF_MIN) == value) return;
+  seti(OFF_MIN, value);
+  xSemaphoreTake(_mutex_off_min, 0);
+  _off_min_changed = true;
+  _off_min_undefined = false;
+  xSemaphoreGive(_mutex_off_min);
+}
+
+
+static SemaphoreHandle_t _mutex_pause; // TODO check RAM weight of creating so many semaphores :/
+static bool _pause_changed = true;
+static bool _pause_undefined = true;
+
+void reset_pause_changed() {
+  xSemaphoreTake(_mutex_pause, 0);
+  _pause_changed = false;
+  xSemaphoreGive(_mutex_pause);
+}
+
+bool is_pause_changed() {
+  xSemaphoreTake(_mutex_pause, 0);
+  bool v = _pause_changed;
+  xSemaphoreGive(_mutex_pause);
+  return v;
+}
+
+bool is_pause_undefined() {
+  xSemaphoreTake(_mutex_pause, 0);
+  bool v = _pause_undefined;
+  xSemaphoreGive(_mutex_pause);
+  return v;
+}
+
+
+
+int get_pause() {
+  return geti(PAUSE);
+}
+
+void set_pause(int value) {
+  if (geti(PAUSE) == value) return;
+  seti(PAUSE, value);
+  xSemaphoreTake(_mutex_pause, 0);
+  _pause_changed = true;
+  _pause_undefined = false;
+  xSemaphoreGive(_mutex_pause);
+}
+
+
 void init_helpers() {
   _mutex_wifi_status = xSemaphoreCreateMutexStatic(&mutex_buffer);
   _mutex_wifi_ssid = xSemaphoreCreateMutexStatic(&mutex_buffer);
@@ -1230,6 +1586,15 @@ void init_helpers() {
   _mutex_reboot = xSemaphoreCreateMutexStatic(&mutex_buffer);
   _mutex_co2 = xSemaphoreCreateMutexStatic(&mutex_buffer);
   _mutex_solenoid = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_co2_min = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_co2_max = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_cycle_div = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_cycle_div_duration = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_on_hour = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_on_min = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_off_hour = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_off_min = xSemaphoreCreateMutexStatic(&mutex_buffer);
+  _mutex_pause = xSemaphoreCreateMutexStatic(&mutex_buffer);
 }
 
 /*
